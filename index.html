@@ -24,23 +24,23 @@
                     <fieldset id="freeze-dice">
                         <div class="freeze-die-item">
                             <label for="freeze-die-1">Keep 1</label>
-                            <input type="checkbox" name="freeze-die-1" id="freeze-die-1"/>
+                            <input type="checkbox" name="freeze-die-1" id="freeze-die-1" disabled/>
                         </div>
                         <div class="freeze-die-item">
                             <label for="freeze-die-2">Keep 2</label>
-                            <input type="checkbox" name="freeze-die-2" id="freeze-die-2"/>
+                            <input type="checkbox" name="freeze-die-2" id="freeze-die-2" disabled/>
                         </div>
                         <div class="freeze-die-item">
                             <label for="freeze-die-3">Keep 3</label>
-                            <input type="checkbox" name="freeze-die-3" id="freeze-die-3"/>
+                            <input type="checkbox" name="freeze-die-3" id="freeze-die-3" disabled/>
                         </div>
                         <div class="freeze-die-item">
                             <label for="freeze-die-4">Keep 4</label>
-                            <input type="checkbox" name="freeze-die-4" id="freeze-die-4"/>
+                            <input type="checkbox" name="freeze-die-4" id="freeze-die-4" disabled/>
                         </div>
                         <div class="freeze-die-item">
                             <label for="freeze-die-5">Keep 5</label>
-                            <input type="checkbox" name="freeze-die-5" id="freeze-die-5"/>
+                            <input type="checkbox" name="freeze-die-5" id="freeze-die-5" disabled/>
                         </div>
                     </fieldset>
                     <input type="submit" value="Roll" />
@@ -50,12 +50,19 @@
                         <label for="hand-select">Select the hand to score: </label>
                         <select name="hand-select" id="hand-select">
                             <option value="">(select a hand)</option>
-                            <option value="aces">Aces</option>
-                            <option value="deuces">Deuces</option>
-                            <option value="threes">Threes</option>
-                            <option value="fours">Fours</option>
-                            <option value="fives">Fives</option>
-                            <option value="sixes">Sixes</option>
+                            <option id="aces" value="aces">Aces</option>
+                            <option id="deuces" value="deuces">Deuces</option>
+                            <option id="threes" value="threes">Threes</option>
+                            <option id="fours" value="fours">Fours</option>
+                            <option id="fives" value="fives">Fives</option>
+                            <option id="sixes" value="sixes">Sixes</option>
+                            <option id="three-of-a-kind" value="three-of-a-kind">Three of a kind</option>
+                            <option id="four-of-a-kind" value="four-of-a-kind">Four of a kind</option>
+                            <option id="full-house" value="full-house">Full house</option>
+                            <option id="small-straight" value="small-straight">Small straight</option>
+                            <option id="large-straight" value="large-straight">Large straight</option>
+                            <option id="yahtzee" value="yahtzee">Yahtzee</option>
+                            <option id="chance" value="chance">Chance</option>
                         </select>
                         <input type="submit" value="Score Hand" disabled class="disabled"/>
                     </form>
@@ -102,10 +109,46 @@
                             <td class="score">-</td>
                             <td class="reference">Score all sixes in hand</td>
                         </tr>
+                        <tr id="scorecard-three-of-a-kind">
+                            <td class="hand-name">Three of a kind</td>
+                            <td class="score">-</td>
+                            <td class="reference">Must have three of a kind, score sum of dice</td>
+                        </tr>
+                        <tr id="scorecard-four-of-a-kind">
+                            <td class="hand-name">Four of a kind</td>
+                            <td class="score">-</td>
+                            <td class="reference">Must have four of a kind, score sum of dice</td>
+                        </tr>
+                        <tr id="scorecard-full-house">
+                            <td class="hand-name">Full house</td>
+                            <td class="score">-</td>
+                            <td class="reference">Three of a kind & two of another, yields 25</td>
+                        </tr>
+                        <tr id="scorecard-small-straight">
+                            <td class="hand-name">Small straight</td>
+                            <td class="score">-</td>
+                            <td class="reference">Sequence of 4, yields 30</td>
+                        </tr>
+                        <tr id="scorecard-large-straight">
+                            <td class="hand-name">Large straight</td>
+                            <td class="score">-</td>
+                            <td class="reference">Sequence of 5, yields 40</td>
+                        </tr>
+                        <tr id="scorecard-yahtzee">
+                            <td class="hand-name">Yahtzee</td>
+                            <td class="score">-</td>
+                            <td class="reference">Five of a kind, yields 50</td>
+                        </tr>
+                        <tr id="scorecard-chance">
+                            <td class="hand-name">Chance</td>
+                            <td class="score">-</td>
+                            <td class="reference">No requirements, score sum of dice</td>
+                        </tr>
+
                     </tbody>
                 </table>
                 <div class="point-label">
-                    <h3 id="total-points">Total: 0</h3>
+                    <h3>Total: <span id="total-points">0</span></h3>
                 </div>
             </div>
         </section>

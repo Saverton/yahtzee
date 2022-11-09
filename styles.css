@@ -132,6 +132,6 @@ th:last-of-type {
     border: none;
 }
 
-td.scored {
+tr.scored {
     background-color: gold;
 }
