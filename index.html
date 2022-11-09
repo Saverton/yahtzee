@@ -34,7 +34,19 @@
                     </form>
                 </div>
                 <div id="hand-selection-container">
-                    
+                    <form id="hand-select-form">
+                        <label for="hand-select">Select the hand to score: </label>
+                        <select name="hand-select" id="hand-select">
+                            <option value="">(select a hand)</option>
+                            <option value="aces">Aces</option>
+                            <option value="deuces">Deuces</option>
+                            <option value="threes">Threes</option>
+                            <option value="fours">Fours</option>
+                            <option value="fives">Fives</option>
+                            <option value="sixes">Sixes</option>
+                        </select>
+                        <input type="submit" value="Score Hand" />
+                    </form>
                 </div>
             </div>
             <div class="container right" id="scoresheet">
