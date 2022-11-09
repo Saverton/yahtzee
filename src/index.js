@@ -11,7 +11,11 @@ const DICE_IMAGES = {
 
 const diceContainer = document.getElementById('dice-container');
 const rollDiceForm = document.getElementById('roll-dice-form');
-const rollsThisTurnDisplay = document.getElementById('rolls-left')
+const rollsThisTurnDisplay = document.getElementById('rolls-left');
+const handSelector = document.getElementById('hand-select');
+const currentPoints = document.getElementById('current-points');
+const diceSubmitButton = document.querySelector('#roll-dice-form input[type="submit"]');
+const handSubmitButton = document.querySelector('#hand-select-form input[type="submit"]');
 
 const dice = [new Die(6), new Die(6), new Die(6), new Die(6), new Die(6)];
 let rollsThisTurn = 3;
@@ -31,9 +35,25 @@ rollDiceForm.addEventListener('submit', e => {
     });
     rollsThisTurn--;
     rollsThisTurnDisplay.textContent = rollsThisTurn;
-    // disable roll if rolls this turn is 0
+    if (rollsThisTurn === 0) {
+        diceSubmitButton.toggleAttribute('disabled');
+        diceSubmitButton.classList.toggle('disabled');
+    }
+    if (handSubmitButton.classList.contains('disabled')) {
+        handSubmitButton.classList.toggle('disabled');
+        handSubmitButton.toggleAttribute('disabled');
+    }
     loadDice();
 })
+
+handSelector.addEventListener('change', (e) => {
+    let potentialPoints
+    if (e.target.value === '')
+        potentialPoints = 0;
+    else
+        potentialPoints = HAND_TYPES[e.target.value].score(dice);
+    currentPoints.textContent = potentialPoints;
+});
 
 function loadDice() {
     dice.forEach((die, index) => {
