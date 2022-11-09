@@ -193,3 +193,13 @@ function checkForYahtzeeBonus() {
 }
 
 loadDice();
+
+/**
+ * TODO:
+ * 1. Game completion message
+ * 2. Game reset
+ * 3. Better code formatting
+ * 4. Write rules
+ * 5. Improve styling
+ * 6. Write styling for mobile devices
+ */
