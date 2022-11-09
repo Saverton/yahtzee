@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Yahtzee!</title>
+        <link rel="stylesheet" href="./styles.css" />
+        <script defer src="./src/index.js" ></script>
+    </head>
+    <body>
+        <h1>Hello Yahtzee!</h1>
+        <section id="game-section">
+            <div class="container left" id="play-div">
+                <div id="dice-container">
+                    <div class="die"></div>
+                    <div class="die"></div>
+                    <div class="die"></div>
+                    <div class="die"></div>
+                    <div class="die"></div>
+                    <form id="roll-dice-form" class="play-form">
+                        <fieldset id="freeze-dice">
+                            <label for="freeze-die-1">Keep 1</label>
+                            <input type="checkbox" name="freeze-die-1" id="freeze-die-1" />
+                            <label for="freeze-die-2">Keep 2</label>
+                            <input type="checkbox" name="freeze-die-2" id="freeze-die-2" />
+                            <label for="freeze-die-3">Keep 3</label>
+                            <input type="checkbox" name="freeze-die-3" id="freeze-die-3" />
+                            <label for="freeze-die-4">Keep 4</label>
+                            <input type="checkbox" name="freeze-die-4" id="freeze-die-4" />
+                            <label for="freeze-die-5">Keep 5</label>
+                            <input type="checkbox" name="freeze-die-5" id="freeze-die-5" />
+                        </fieldset>
+                        <input type="submit" value="Roll" />
+                    </form>
+                </div>
+                <div id="hand-selection-container">
+                    
+                </div>
+            </div>
+            <div class="container right" id="scoresheet">
+
+            </div>
+        </section>
+        <section id="rules-section">
+            <h2>The Rules of Yahtzee</h2>
+            <p>Test Text!</p>
+        </section>
+    </body>
+</html>
