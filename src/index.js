@@ -17,8 +17,9 @@ const handSelector = document.getElementById('hand-select');
 const currentPoints = document.getElementById('current-points');
 const diceSubmitButton = document.querySelector('#roll-dice-form input[type="submit"]');
 const handSubmitButton = document.querySelector('#hand-select-form input[type="submit"]');
-const scorecardTable = document.querySelector('#scorecard tbody').children;
+const scorecardTable = document.querySelector('.scorecard tbody');
 const totalScoreDisplay = document.getElementById('total-points');
+const scoreReport = document.querySelector('.game-report');
 
 
 const dice = [new Die(6), new Die(6), new Die(6), new Die(6), new Die(6)];
@@ -115,7 +116,7 @@ function submitHand(hand) {
     scorecard[hand].score = scoreThisHand;
     scorecard[hand].used = true;
     // update the scorecard
-    const handTableRow = document.getElementById(`scorecard-${camelCaseToDashes(hand)}`);
+    const handTableRow = document.getElementsByClassName(`scorecard-${camelCaseToDashes(hand)}`)[0];
     const handScore = handTableRow.querySelector('.score');
     handTableRow.classList.add('scored');
     handScore.textContent = scoreThisHand;
@@ -184,6 +185,7 @@ function tallyFinalScores() {
         totalScore += 35;
     }
     
+    scoreReport.classList.toggle('hidden');
     console.log(totalScore);
 }
 
@@ -201,5 +203,5 @@ loadDice();
  * 3. Better code formatting
  * 4. Write rules
  * 5. Improve styling
- * 6. Write styling for mobile devices
+ * 6. Write styling for mobile devices 
  */

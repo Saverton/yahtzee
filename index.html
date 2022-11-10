@@ -72,74 +72,74 @@
                 <div class="point-label">
                     <h3>With Selected Hand: <span id='current-points'>0</span></h3>
                 </div>
-                <table id="scorecard">
+                <table class="scorecard">
                     <thead>
                         <th>Hand</th>
                         <th>Score</th>
                         <th>Reference</th>
                     </thead>
                     <tbody>
-                        <tr id="scorecard-aces">
+                        <tr class="scorecard-aces">
                             <td class="hand-name">Aces</td>
                             <td class="score">-</td>
                             <td class="reference">Score all ones in hand</td>
                         </tr>
-                        <tr id="scorecard-deuces">
+                        <tr class="scorecard-deuces">
                             <td class="hand-name">Deuces</td>
                             <td class="score">-</td>
                             <td class="reference">Score all twos in hand</td>
                         </tr>
-                        <tr id="scorecard-threes">
+                        <tr class="scorecard-threes">
                             <td class="hand-name">Threes</td>
                             <td class="score">-</td>
                             <td class="reference">Score all threes in hand</td>
                         </tr>
-                        <tr id="scorecard-fours">
+                        <tr class="scorecard-fours">
                             <td class="hand-name">Fours</td>
                             <td class="score">-</td>
                             <td class="reference">Score all fours in hand</td>
                         </tr>
-                        <tr id="scorecard-fives">
+                        <tr class="scorecard-fives">
                             <td class="hand-name">Fives</td>
                             <td class="score">-</td>
                             <td class="reference">Score all fives in hand</td>
                         </tr>
-                        <tr id="scorecard-sixes">
+                        <tr class="scorecard-sixes">
                             <td class="hand-name">Sixes</td>
                             <td class="score">-</td>
                             <td class="reference">Score all sixes in hand</td>
                         </tr>
-                        <tr id="scorecard-three-of-a-kind">
+                        <tr class="scorecard-three-of-a-kind">
                             <td class="hand-name">Three of a kind</td>
                             <td class="score">-</td>
                             <td class="reference">Must have three of a kind, score sum of dice</td>
                         </tr>
-                        <tr id="scorecard-four-of-a-kind">
+                        <tr class="scorecard-four-of-a-kind">
                             <td class="hand-name">Four of a kind</td>
                             <td class="score">-</td>
                             <td class="reference">Must have four of a kind, score sum of dice</td>
                         </tr>
-                        <tr id="scorecard-full-house">
+                        <tr class="scorecard-full-house">
                             <td class="hand-name">Full house</td>
                             <td class="score">-</td>
                             <td class="reference">Three of a kind & two of another, yields 25</td>
                         </tr>
-                        <tr id="scorecard-small-straight">
+                        <tr class="scorecard-small-straight">
                             <td class="hand-name">Small straight</td>
                             <td class="score">-</td>
                             <td class="reference">Sequence of 4, yields 30</td>
                         </tr>
-                        <tr id="scorecard-large-straight">
+                        <tr class="scorecard-large-straight">
                             <td class="hand-name">Large straight</td>
                             <td class="score">-</td>
                             <td class="reference">Sequence of 5, yields 40</td>
                         </tr>
-                        <tr id="scorecard-yahtzee">
+                        <tr class="scorecard-yahtzee">
                             <td class="hand-name">Yahtzee</td>
                             <td class="score">-</td>
                             <td class="reference">Five of a kind, yields 50</td>
                         </tr>
-                        <tr id="scorecard-chance">
+                        <tr class="scorecard-chance">
                             <td class="hand-name">Chance</td>
                             <td class="score">-</td>
                             <td class="reference">No requirements, score sum of dice</td>
@@ -157,6 +157,93 @@
                 <h2>The Rules of Yahtzee</h2>
                 <p>Test Text!</p>
             </div>
+        </section>
+        <section class="game-report hidden">
+            <h2>Game Report</h2>
+            <table class="scorecard">
+                <thead>
+                    <th>Hand</th>
+                    <th>Score</th>
+                    <th>Reference</th>
+                </thead>
+                <tbody>
+                    <tr class="scorecard-aces">
+                        <td class="hand-name">Aces</td>
+                        <td class="score">-</td>
+                        <td class="reference">Score all ones in hand</td>
+                    </tr>
+                    <tr class="scorecard-deuces">
+                        <td class="hand-name">Deuces</td>
+                        <td class="score">-</td>
+                        <td class="reference">Score all twos in hand</td>
+                    </tr>
+                    <tr class="scorecard-threes">
+                        <td class="hand-name">Threes</td>
+                        <td class="score">-</td>
+                        <td class="reference">Score all threes in hand</td>
+                    </tr>
+                    <tr class="scorecard-fours">
+                        <td class="hand-name">Fours</td>
+                        <td class="score">-</td>
+                        <td class="reference">Score all fours in hand</td>
+                    </tr>
+                    <tr class="scorecard-fives">
+                        <td class="hand-name">Fives</td>
+                        <td class="score">-</td>
+                        <td class="reference">Score all fives in hand</td>
+                    </tr>
+                    <tr class="scorecard-sixes">
+                        <td class="hand-name">Sixes</td>
+                        <td class="score">-</td>
+                        <td class="reference">Score all sixes in hand</td>
+                    </tr>
+                    <tr class="scorecard-three-of-a-kind">
+                        <td class="hand-name">Three of a kind</td>
+                        <td class="score">-</td>
+                        <td class="reference">Must have three of a kind, score sum of dice</td>
+                    </tr>
+                    <tr class="scorecard-four-of-a-kind">
+                        <td class="hand-name">Four of a kind</td>
+                        <td class="score">-</td>
+                        <td class="reference">Must have four of a kind, score sum of dice</td>
+                    </tr>
+                    <tr class="scorecard-full-house">
+                        <td class="hand-name">Full house</td>
+                        <td class="score">-</td>
+                        <td class="reference">Three of a kind & two of another, yields 25</td>
+                    </tr>
+                    <tr class="scorecard-small-straight">
+                        <td class="hand-name">Small straight</td>
+                        <td class="score">-</td>
+                        <td class="reference">Sequence of 4, yields 30</td>
+                    </tr>
+                    <tr class="scorecard-large-straight">
+                        <td class="hand-name">Large straight</td>
+                        <td class="score">-</td>
+                        <td class="reference">Sequence of 5, yields 40</td>
+                    </tr>
+                    <tr class="scorecard-yahtzee">
+                        <td class="hand-name">Yahtzee</td>
+                        <td class="score">-</td>
+                        <td class="reference">Five of a kind, yields 50</td>
+                    </tr>
+                    <tr class="scorecard-chance">
+                        <td class="hand-name">Chance</td>
+                        <td class="score">-</td>
+                        <td class="reference">No requirements, score sum of dice</td>
+                    </tr>
+                    <tr class="scorecard-yahtzee-bonus">
+                        <td class="hand-name">Yahtzee Bonus!</td>
+                        <td class="score">-</td>
+                        <td class="reference">Yahtzees rolled after first Yahtzee, yields 100</td>
+                    </tr>
+                    <tr class="scorecard-total">
+                        <td class="hand-name"><strong>Total</strong></td>
+                        <td class="score"><strong>-</strong></td>
+                        <td class="reference">Total Points</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
     </body>
 </html>

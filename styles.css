@@ -106,7 +106,7 @@ input[type="submit"].disabled {
     text-align: center;
 }
 
-#scorecard {
+.scorecard {
     border: 2px solid black;
     margin: 1em auto;
     min-width: 100%;
@@ -134,4 +134,26 @@ th:last-of-type {
 
 tr.scored {
     background-color: gold;
+}
+
+.game-report {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: absolute;
+    margin: auto;
+    top: 20%;
+    left: 38%;
+    width: 20%;
+    height: 50%;
+    overflow: auto;
+    padding: 2%;
+}
+
+.game-report h2 {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
 }
