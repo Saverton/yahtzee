@@ -1,5 +1,6 @@
 body {
     background-color: darkred;
+    overflow: auto;
 }
 
 h1 {
@@ -143,8 +144,9 @@ tr.scored {
     position: absolute;
     margin: auto;
     top: 20%;
-    left: 38%;
+    left: calc(50% - max(150px, 12%));
     width: 20%;
+    min-width: 300px;
     height: 50%;
     overflow: auto;
     padding: 2%;
