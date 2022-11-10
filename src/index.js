@@ -20,27 +20,14 @@ const handSubmitButton = document.querySelector('#hand-select-form input[type="s
 const scorecardTable = document.querySelector('.scorecard tbody');
 const totalScoreDisplay = document.getElementById('total-points');
 const scoreReport = document.querySelector('.game-report');
+const gameResetButton = document.getElementById('reset-button');
 
 
 const dice = [new Die(6), new Die(6), new Die(6), new Die(6), new Die(6)];
 let rollsThisTurn = 3;
 
 let totalScore = 0;
-const scorecard = {
-    aces: {score: 0, used: false},
-    deuces: {score: 0, used: false},
-    threes: {score: 0, used: false},
-    fours: {score: 0, used: false},
-    fives: {score: 0, used: false},
-    sixes: {score: 0, used: false},
-    threeOfAKind: {score: 0, used: false},
-    fourOfAKind: {score: 0, used: false},
-    fullHouse: {score: 0, used: false},
-    smallStraight: {score: 0, used: false},
-    largeStraight: {score: 0, used: false},
-    yahtzee: {score: 0, used: false},
-    chance: {score: 0, used: false}
-}
+let scorecard = new Scorecard();
 
 rollDiceForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -67,15 +54,14 @@ rollDiceForm.addEventListener('submit', e => {
         diceSubmitButton.toggleAttribute('disabled');
         diceSubmitButton.classList.toggle('disabled');
     }
-    if (handSubmitButton.classList.contains('disabled')) {
-        handSubmitButton.classList.toggle('disabled');
-        handSubmitButton.toggleAttribute('disabled');
-    }
+    handSubmitButton.classList.remove('disabled');
+    handSubmitButton.removeAttribute('disabled');
     loadDice();
     if (checkForYahtzeeBonus()) {
         console.log('yahtzee bonus!')
         //yahtzee bonus message!
         totalScore += 100;
+        scorecard.yahtzeeBonus.score += 100;
         // reset rolls, score
     }
 })
@@ -128,10 +114,8 @@ function submitHand(hand) {
     // disable select and re-enable roll
     handSubmitButton.classList.toggle('disabled');
     handSubmitButton.toggleAttribute('disabled');
-    if(diceSubmitButton.classList.contains('disabled')) {
-        diceSubmitButton.toggleAttribute('disabled');
-        diceSubmitButton.classList.toggle('disabled');
-    }
+    diceSubmitButton.removeAttribute('disabled');
+    diceSubmitButton.classList.remove('disabled');
     // reset roll count
     rollsThisTurn = 3;
     rollsThisTurnDisplay.textContent = rollsThisTurn;
@@ -146,6 +130,8 @@ function submitHand(hand) {
         tallyFinalScores();
     }
 }
+
+gameResetButton.addEventListener('click', resetGame);
 
 function toggleKeepDisabled() {
     for (let i = 1; i <= 5; i++) {
@@ -194,14 +180,50 @@ function checkForYahtzeeBonus() {
     return (HAND_TYPES.yahtzee.isValid(dice) && scorecard.yahtzee.used)
 }
 
+function resetGame() {
+    scoreReport.classList.toggle('hidden');
+    scorecard = new Scorecard();
+    rollsThisTurn = 3;
+    totalScore = 0;
+    dice.forEach((element, index, diceArray) => diceArray[index] = new Die(6));
+    loadDice();
+    resetScoreCardDisplay();
+    totalScoreDisplay.textContent = 0;
+    handSelector.innerHTML = `
+        <option value="">(select a hand)</option>
+        <option id="aces" value="aces">Aces</option>
+        <option id="deuces" value="deuces">Deuces</option>
+        <option id="threes" value="threes">Threes</option>
+        <option id="fours" value="fours">Fours</option>
+        <option id="fives" value="fives">Fives</option>
+        <option id="sixes" value="sixes">Sixes</option>
+        <option id="three-of-a-kind" value="three-of-a-kind">Three of a kind</option>
+        <option id="four-of-a-kind" value="four-of-a-kind">Four of a kind</option>
+        <option id="full-house" value="full-house">Full house</option>
+        <option id="small-straight" value="small-straight">Small straight</option>
+        <option id="large-straight" value="large-straight">Large straight</option>
+        <option id="yahtzee" value="yahtzee">Yahtzee</option>
+        <option id="chance" value="chance">Chance</option>
+    `;
+}
+
+function resetScoreCardDisplay() {
+    scoreCardDisplayArray = Array.from(scorecardTable.children);
+    scoreCardDisplayArray.forEach((tableRow) => {
+        const score = tableRow.querySelector('.score');
+        score.textContent = '-';
+        tableRow.classList.remove('scored');
+    });
+}
+
 loadDice();
 
 /**
  * TODO:
- * 1. Game completion message
- * 2. Game reset
+ * 2. Game reset (done)
  * 3. Better code formatting
- * 4. Write rules
- * 5. Improve styling
+ * 4a. fix yahtzee bonus message 
+ * 4b. Write rules 
+ * 5. Improve styling 
  * 6. Write styling for mobile devices 
  */

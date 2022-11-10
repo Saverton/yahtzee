@@ -30,6 +30,25 @@ class Hand {
     }
 }
 
+class Scorecard {
+    constructor() {
+        this.aces = {score: 0, used: false}
+        this.deuces = {score: 0, used: false}
+        this.threes = {score: 0, used: false}
+        this.fours = {score: 0, used: false}
+        this.fives = {score: 0, used: false}
+        this.sixes = {score: 0, used: false}
+        this.threeOfAKind = {score: 0, used: false}
+        this.fourOfAKind = {score: 0, used: false}
+        this.fullHouse = {score: 0, used: false}
+        this.smallStraight = {score: 0, used: false}
+        this.largeStraight = {score: 0, used: false}
+        this.yahtzee = {score: 0, used: false}
+        this.chance = {score: 0, used: false}
+        this.yahtzeeBonus = {score: 0}
+    }
+}
+
 const HAND_TYPES = {
     aces: new Hand(addAllOfType(1), returnTrue),
     deuces: new Hand(addAllOfType(2), returnTrue),
