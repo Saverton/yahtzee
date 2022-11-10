@@ -1,4 +1,4 @@
-console.log('Hello, World!');
+/* constants */
 
 const DICE_IMAGES = {
     '1': './images/die-1.png',
@@ -20,175 +20,143 @@ const handSubmitButton = document.querySelector('#hand-select-form input[type="s
 const scorecardTable = document.querySelector('.scorecard tbody');
 const totalScoreDisplay = document.getElementById('total-points');
 const scoreReport = document.querySelector('.game-report');
+const scoreReportScorecard = document.querySelector('.game-report .scorecard tbody');
 const gameResetButton = document.getElementById('reset-button');
+const keepDieCheckboxes = Array.from(document.getElementsByClassName('keep-checkbox'));
+const diceArray = Array.from(document.getElementsByClassName('die'));
 
+/* global variables */
 
-const dice = [new Die(6), new Die(6), new Die(6), new Die(6), new Die(6)];
+let dice = [new Die(6), new Die(6), new Die(6), new Die(6), new Die(6)];
 let rollsThisTurn = 3;
 
 let totalScore = 0;
 let scorecard = new Scorecard();
 
-rollDiceForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const keepDice = {
-        1: e.target['freeze-die-1'].checked,
-        2: e.target['freeze-die-2'].checked,
-        3: e.target['freeze-die-3'].checked,
-        4: e.target['freeze-die-4'].checked,
-        5: e.target['freeze-die-5'].checked,
-    }
+/* init function: calls on load */
+function init() {
+    updateDiceDisplay();
+    rollDiceForm.addEventListener('submit', handleDiceRoll);
+    handForm.addEventListener('submit', handleHandFormSubmit);
+    handSelector.addEventListener('change', handleHandPreview);
+    gameResetButton.addEventListener('click', handleGameReset);
+}
+
+/* game functions */
+
+function updateDiceDisplay() {
     dice.forEach((die, index) => {
-        if (!keepDice[index + 1]) {
-            die.roll
-            // test yahtzee bonus
-            // die.currentSide = 1;
-        }
-    });
-    if (rollsThisTurn === 3) {
-        toggleKeepDisabled();
-    }
-    rollsThisTurn--;
-    rollsThisTurnDisplay.textContent = rollsThisTurn;
-    if (rollsThisTurn === 0) {
-        diceSubmitButton.toggleAttribute('disabled');
-        diceSubmitButton.classList.toggle('disabled');
-    }
-    handSubmitButton.classList.remove('disabled');
-    handSubmitButton.removeAttribute('disabled');
-    loadDice();
-    if (checkForYahtzeeBonus()) {
-        console.log('yahtzee bonus!')
-        //yahtzee bonus message!
-        totalScore += 100;
-        scorecard.yahtzeeBonus.score += 100;
-        // reset rolls, score
-    }
-})
-
-handSelector.addEventListener('change', (e) => {
-    let potentialPoints
-    if (e.target.value === '')
-        potentialPoints = 0;
-    else
-        potentialPoints = HAND_TYPES[dashesToCamelCase(e.target.value)].score(dice);
-    currentPoints.textContent = potentialPoints;
-});
-
-handForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const hand = dashesToCamelCase(e.target['hand-select'].value);
-    if (hand === '') 
-        return;
-    submitHand(hand);
-    e.target.reset();
-})
-
-function loadDice() {
-    dice.forEach((die, index) => {
-        const dieContainer = document.getElementById(`die-${index + 1}`);
-        const dieImage = document.createElement('img');
-        dieImage.src = DICE_IMAGES[die.currentSide];
-
-        dieContainer.innerHTML = '';
-        dieContainer.appendChild(dieImage);
+        const diceImg = document.createElement('img');
+        diceImg.src = getDieImage(die);
+        diceArray[index].innerHTML = '';
+        diceArray[index].append(diceImg);
     })
 }
 
-function submitHand(hand) {
-    const scoreThisHand = HAND_TYPES[hand].score(dice);
-    // submit the current hand and add points
-    totalScore += scoreThisHand
+function getDieImage(die) {
+    return DICE_IMAGES[die.currentSide];
+}
+
+function displayScorePreview(hand) {
+    currentPoints.textContent = getScoreForHand(hand);
+}
+
+function updateRollsThisTurn(amount) {
+    rollsThisTurn = amount;
+    rollsThisTurnDisplay.textContent = rollsThisTurn;
+    if (rollsThisTurn === 0) {
+        keepDieCheckboxes.forEach(disableElement);
+        disableElement(diceSubmitButton);
+    }
+}
+
+// on any given roll, check if a yahtzee bonus occurs, and execute its behavior if it does.
+function checkForYahtzeeBonus() {
+    if (HAND_TYPES.yahtzee.isValid(dice) && scorecard.yahtzee.used) {
+        console.log('yahtzee bonus!')
+        totalScore += 100;
+        scorecard.yahtzeeBonus.score += 100;
+        // display yahtzee bonus icon
+        resetTurn();
+    }
+}
+
+function resetTurn() {
+    updateRollsThisTurn(3);
+    disableElement(handSubmitButton);
+    enableElement(diceSubmitButton);
+    currentPoints.textContent = 0;
+    keepDieCheckboxes.forEach((checkbox) => {
+        uncheck(checkbox);
+        disableElement(checkbox);
+    });
+    checkGameEnds();
+}
+
+function getScoreForHand(hand) {
+    return HAND_TYPES[hand].score(dice);
+}
+
+function updateScore(hand, scoreThisHand) {
+    totalScore += scoreThisHand;
     scorecard[hand].score = scoreThisHand;
     scorecard[hand].used = true;
-    // update the scorecard
-    const handTableRow = document.getElementsByClassName(`scorecard-${camelCaseToDashes(hand)}`)[0];
-    const handScore = handTableRow.querySelector('.score');
-    handTableRow.classList.add('scored');
+    
+    const scorecardEntry = scorecardTable.querySelector(`.scorecard-${camelCaseToDashes(hand)}`);
+    const handScore = scorecardEntry.querySelector('.score')
+    scorecardEntry.classList.add('scored');
     handScore.textContent = scoreThisHand;
-    // update the total points display
+    
     totalScoreDisplay.textContent = totalScore;
-    // remove the hand from the select list
-    const handSelection = document.getElementById(camelCaseToDashes(hand));
-    handSelection.remove();
-    // disable select and re-enable roll
-    handSubmitButton.classList.toggle('disabled');
-    handSubmitButton.toggleAttribute('disabled');
-    diceSubmitButton.removeAttribute('disabled');
-    diceSubmitButton.classList.remove('disabled');
-    // reset roll count
-    rollsThisTurn = 3;
-    rollsThisTurnDisplay.textContent = rollsThisTurn;
-    // reset score preview
-    currentPoints.textContent = 0;
-    // disable keeps
-    toggleKeepDisabled();
-    uncheckAllKeep();
-    // check for win
+}
+
+function checkGameEnds() {
     if (handSelector.children.length === 1) {
-        // end game, tally score
         tallyFinalScores();
     }
 }
 
-gameResetButton.addEventListener('click', resetGame);
-
-function toggleKeepDisabled() {
-    for (let i = 1; i <= 5; i++) {
-        const keepCheckbox = document.getElementById(`freeze-die-${i}`);
-        keepCheckbox.toggleAttribute('disabled');
-    }
-}
-
-function uncheckAllKeep() {
-    for (let i = 1; i <= 5; i++) {
-        const keepCheckbox = document.getElementById(`freeze-die-${i}`);
-        keepCheckbox.checked = false;
-    }
-}
-
-function dashesToCamelCase(str) {
-    return str.split('-').map((element, index) => {
-        if (index !== 0)
-            return element[0].toUpperCase() + element.substring(1);
-        else
-            return element;
-    }).join('');
-}
-
-function camelCaseToDashes(str) {
-    for (let i = 0; i < str.length; i++) {
-        const char = str[i];
-        if (char === char.toUpperCase()) {
-            str = str.substring(0, i) + '-' + char.toLowerCase() + str.substring(i + 1);
-        }
-    }
-    return str;
-}
-
 function tallyFinalScores() {
+    checkForBonusScore();
+    showScoreReport();
+}
+
+function checkForBonusScore() {
     if (scorecard.aces.score + scorecard.deuces.score + scorecard.threes.score + scorecard.fours.score + scorecard.fives.score + scorecard.sixes.score >= 63) {
         totalScore += 35;
+        scorecard.scoreBonus.score = 35;
     }
-    
-    scoreReport.classList.toggle('hidden');
-    console.log(totalScore);
 }
 
-// on any given roll, check if a yahtzee bonus occurs
-function checkForYahtzeeBonus() {
-    return (HAND_TYPES.yahtzee.isValid(dice) && scorecard.yahtzee.used)
+function showScoreReport() {
+    scoreReport.classList.remove('hidden');
+    for (let hand in scorecard) {
+        const scorecardEntry = scoreReportScorecard.querySelector(`.scorecard-${camelCaseToDashes(hand)} .score`);
+        scorecardEntry.textContent = scorecard[hand].score;
+    }
+    const totalPointsScorecard = scoreReportScorecard.querySelector(`.scorecard-total .score`);
+    totalPointsScorecard.textContent = totalScore;
+}
+
+function removeHand(hand) {
+    const handSelection = document.getElementById(camelCaseToDashes(hand));
+    handSelection.remove();
 }
 
 function resetGame() {
     scoreReport.classList.toggle('hidden');
+
     scorecard = new Scorecard();
-    rollsThisTurn = 3;
     totalScore = 0;
-    dice.forEach((element, index, diceArray) => diceArray[index] = new Die(6));
-    loadDice();
+    totalScoreDisplay.textContent = totalScore;
+
+    updateRollsThisTurn(3);
+
+    dice = [new Die(6), new Die(6), new Die(6), new Die(6), new Die(6)];
+    updateDiceDisplay()
+
     resetScoreCardDisplay();
-    totalScoreDisplay.textContent = 0;
+
     handSelector.innerHTML = `
         <option value="">(select a hand)</option>
         <option id="aces" value="aces">Aces</option>
@@ -216,14 +184,107 @@ function resetScoreCardDisplay() {
     });
 }
 
-loadDice();
+/* event handlers */
 
-/**
- * TODO:
- * 2. Game reset (done)
- * 3. Better code formatting
- * 4a. fix yahtzee bonus message 
- * 4b. Write rules 
- * 5. Improve styling 
- * 6. Write styling for mobile devices 
- */
+function handleDiceRoll(event) {
+    event.preventDefault();
+
+    const diceToKeep = keepDieCheckboxes.map((element) => element.checked);
+
+    dice.forEach((die, index) => {
+        if (!diceToKeep[index])
+            die.roll;
+    });
+
+    keepDieCheckboxes.forEach(enableElement);
+
+    updateRollsThisTurn(rollsThisTurn - 1);
+    enableElement(handSubmitButton);
+
+    updateDiceDisplay();
+
+    checkForYahtzeeBonus();
+}
+
+function handleHandFormSubmit(event) {
+    event.preventDefault();
+    const hand = dashesToCamelCase(event.target['hand-select'].value);
+    const scoreForThisHand = getScoreForHand(hand);
+    updateScore(hand, scoreForThisHand);
+    removeHand(hand);
+    resetTurn();
+}
+
+function handleHandPreview(event) {
+    const hand = dashesToCamelCase(event.target.value);
+    let potentialPoints
+    if (event.target.value === '')
+        potentialPoints = 0;
+    else
+        potentialPoints = getScoreForHand(hand);
+    currentPoints.textContent = potentialPoints;
+}
+
+function handleGameReset() {
+    resetGame();
+    resetTurn();
+}
+
+/* helper functions */
+
+// remove the disabled class item and attribute from the passed element.
+function enableElement(element) {
+    element.classList.remove('disabled');
+    element.removeAttribute('disabled');
+}
+
+// add the disabled class and attribute to the passed element.
+function disableElement(element) {
+    element.classList.add('disabled');
+    element.setAttribute('disabled', 'true');
+}
+
+// return an array of booleans corresponding to checkbox styles
+function getCheckboxArray(array, element) {
+    array.push[element.checked];
+    return array;
+}
+
+// uncheck a checkbox element
+function uncheck(checkbox) {
+    checkbox.checked = false;
+}
+
+// convert an html lower-case-dashed string to a camelCase string
+function dashesToCamelCase(str) {
+    return str.split('-').map((element, index) => {
+        if (index !== 0)
+            return element[0].toUpperCase() + element.substring(1);
+        else
+            return element;
+    }).join('');
+}
+
+// convert a camelCase string to an html lower-case-dashed string
+function camelCaseToDashes(str) {
+    for (let i = 0; i < str.length; i++) {
+        const char = str[i];
+        if (char === char.toUpperCase()) {
+            str = str.substring(0, i) + '-' + char.toLowerCase() + str.substring(i + 1);
+        }
+    }
+    return str;
+}
+
+/* call init function on load */
+init();
+
+// /**
+//  * TODO:
+//  * 2. Game reset (done)
+//  * 3. Better code formatting (done)
+//  * 4a. fix yahtzee message 
+//  * 4b. Write rules 
+//  * 5. Improve styling 
+//  * 6. Write styling for mobile devices 
+//  */

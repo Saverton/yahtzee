@@ -24,23 +24,23 @@
                     <fieldset id="freeze-dice">
                         <div class="freeze-die-item">
                             <label for="freeze-die-1">Keep 1</label>
-                            <input type="checkbox" name="freeze-die-1" id="freeze-die-1" disabled/>
+                            <input type="checkbox" name="freeze-die-1" id="freeze-die-1" disabled class='disabled keep-checkbox' />
                         </div>
                         <div class="freeze-die-item">
                             <label for="freeze-die-2">Keep 2</label>
-                            <input type="checkbox" name="freeze-die-2" id="freeze-die-2" disabled/>
+                            <input type="checkbox" name="freeze-die-2" id="freeze-die-2" disabled class='disabled keep-checkbox' />
                         </div>
                         <div class="freeze-die-item">
                             <label for="freeze-die-3">Keep 3</label>
-                            <input type="checkbox" name="freeze-die-3" id="freeze-die-3" disabled/>
+                            <input type="checkbox" name="freeze-die-3" id="freeze-die-3" disabled class='disabled keep-checkbox' />
                         </div>
                         <div class="freeze-die-item">
                             <label for="freeze-die-4">Keep 4</label>
-                            <input type="checkbox" name="freeze-die-4" id="freeze-die-4" disabled/>
+                            <input type="checkbox" name="freeze-die-4" id="freeze-die-4" disabled class='disabled keep-checkbox' />
                         </div>
                         <div class="freeze-die-item">
                             <label for="freeze-die-5">Keep 5</label>
-                            <input type="checkbox" name="freeze-die-5" id="freeze-die-5" disabled/>
+                            <input type="checkbox" name="freeze-die-5" id="freeze-die-5" disabled class='disabled keep-checkbox' />
                         </div>
                     </fieldset>
                     <input type="submit" value="Roll" />
@@ -158,7 +158,7 @@
                 <p>Test Text!</p>
             </div>
         </section>
-        <section class="game-report ">
+        <section class="game-report hidden">
             <h2>Game Report</h2>
             <table class="scorecard">
                 <thead>
@@ -236,6 +236,11 @@
                         <td class="hand-name">Yahtzee Bonus!</td>
                         <td class="score">-</td>
                         <td class="reference">Yahtzees rolled after first Yahtzee, yields 100</td>
+                    </tr>
+                    <tr class="scorecard-score-bonus">
+                        <td class="hand-name">Score Bonus</td>
+                        <td class="score">-</td>
+                        <td class="reference">Scored if the sum of Aces-Sixes is >= 63</td>
                     </tr>
                     <tr class="scorecard-total">
                         <td class="hand-name"><strong>Total</strong></td>

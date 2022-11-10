@@ -46,6 +46,7 @@ class Scorecard {
         this.yahtzee = {score: 0, used: false}
         this.chance = {score: 0, used: false}
         this.yahtzeeBonus = {score: 0}
+        this.scoreBonus = {score: 0}
     }
 }
 
@@ -64,7 +65,7 @@ const HAND_TYPES = {
     }),
     smallStraight: new Hand(returnNumber(30), hasStraightOfLength(4)),
     largeStraight: new Hand(returnNumber(40), hasStraightOfLength(5)),
-    yahtzee: new Hand(returnNumber(50), hasXOfAKind(3)),
+    yahtzee: new Hand(returnNumber(50), hasXOfAKind(5)),
     chance: new Hand(totalDice, returnTrue)
 }
 
