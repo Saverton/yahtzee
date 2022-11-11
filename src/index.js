@@ -305,7 +305,7 @@ init();
 //  * TODO:
 //  * 2. Game reset (done)
 //  * 3. Better code formatting (done)
-//  * 4a. fix yahtzee message 
+//  * 4a. fix yahtzee message (done)
 //  * 4b. Write rules 
 //  * 5. Improve styling 
 //  * 6. Write styling for mobile devices 
