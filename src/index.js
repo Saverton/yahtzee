@@ -24,6 +24,8 @@ const scoreReportScorecard = document.querySelector('.game-report .scorecard tbo
 const gameResetButton = document.getElementById('reset-button');
 const keepDieCheckboxes = Array.from(document.getElementsByClassName('keep-checkbox'));
 const diceArray = Array.from(document.getElementsByClassName('die'));
+const yahtzeePopup = document.getElementById('yahtzee-message');
+const yahtzeeScore = document.getElementById('yahtzee-score');
 
 /* global variables */
 
@@ -71,12 +73,16 @@ function updateRollsThisTurn(amount) {
 }
 
 // on any given roll, check if a yahtzee bonus occurs, and execute its behavior if it does.
-function checkForYahtzeeBonus() {
-    if (HAND_TYPES.yahtzee.isValid(dice) && scorecard.yahtzee.used) {
-        console.log('yahtzee bonus!')
-        totalScore += 100;
-        scorecard.yahtzeeBonus.score += 100;
-        // display yahtzee bonus icon
+function checkForYahtzee() {
+    if (HAND_TYPES.yahtzee.isValid(dice)) {
+        let score = 50;
+        let hand = 'yahtzee';
+        if (scorecard.yahtzee.used) {
+            score += 50;
+            hand = 'yahtzeeBonus';
+        }
+        updateScore(hand, score);
+        showYahtzeePopup(score);
         resetTurn();
     }
 }
@@ -129,7 +135,7 @@ function checkForBonusScore() {
 }
 
 function showScoreReport() {
-    scoreReport.classList.remove('hidden');
+    showElement(scoreReport);
     for (let hand in scorecard) {
         const scorecardEntry = scoreReportScorecard.querySelector(`.scorecard-${camelCaseToDashes(hand)} .score`);
         scorecardEntry.textContent = scorecard[hand].score;
@@ -144,7 +150,7 @@ function removeHand(hand) {
 }
 
 function resetGame() {
-    scoreReport.classList.toggle('hidden');
+    hideElement(scoreReport);
 
     scorecard = new Scorecard();
     totalScore = 0;
@@ -170,7 +176,6 @@ function resetGame() {
         <option id="full-house" value="full-house">Full house</option>
         <option id="small-straight" value="small-straight">Small straight</option>
         <option id="large-straight" value="large-straight">Large straight</option>
-        <option id="yahtzee" value="yahtzee">Yahtzee</option>
         <option id="chance" value="chance">Chance</option>
     `;
 }
@@ -182,6 +187,14 @@ function resetScoreCardDisplay() {
         score.textContent = '-';
         tableRow.classList.remove('scored');
     });
+}
+
+function showYahtzeePopup(score) {
+    showElement(yahtzeePopup);
+    yahtzeeScore.textContent = score;
+    setTimeout(() => {
+        hideElement(yahtzeePopup);
+    }, 2000);
 }
 
 /* event handlers */
@@ -203,7 +216,7 @@ function handleDiceRoll(event) {
 
     updateDiceDisplay();
 
-    checkForYahtzeeBonus();
+    checkForYahtzee();
 }
 
 function handleHandFormSubmit(event) {
@@ -276,6 +289,15 @@ function camelCaseToDashes(str) {
     return str;
 }
 
+// hide an element
+function hideElement(element) {
+    element.classList.add('hidden');
+}
+
+// show an element
+function showElement(element) {
+    element.classList.remove('hidden');
+}
 /* call init function on load */
 init();
 

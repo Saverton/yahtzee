@@ -61,7 +61,6 @@
                             <option id="full-house" value="full-house">Full house</option>
                             <option id="small-straight" value="small-straight">Small straight</option>
                             <option id="large-straight" value="large-straight">Large straight</option>
-                            <option id="yahtzee" value="yahtzee">Yahtzee</option>
                             <option id="chance" value="chance">Chance</option>
                         </select>
                         <input type="submit" value="Score Hand" disabled class="disabled"/>
@@ -135,7 +134,7 @@
                             <td class="reference">Sequence of 5, yields 40</td>
                         </tr>
                         <tr class="scorecard-yahtzee">
-                            <td class="hand-name">Yahtzee</td>
+                            <td class="hand-name">Yahtzee!</td>
                             <td class="score">-</td>
                             <td class="reference">Five of a kind, yields 50</td>
                         </tr>
@@ -144,7 +143,11 @@
                             <td class="score">-</td>
                             <td class="reference">No requirements, score sum of dice</td>
                         </tr>
-
+                        <tr class="scorecard-yahtzee-bonus">
+                            <td class="hand-name">Yahtzee Bonus!</td>
+                            <td class="score">-</td>
+                            <td class="reference">Yahtzees rolled after first Yahtzee, yields 100</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div class="point-label">
@@ -250,6 +253,12 @@
                 </tbody>
             </table>
             <button id="reset-button">New Game</button>
+        </section>
+        <section id="yahtzee-message" class="hidden">
+            <div >
+                <h2 class="container-title">Yahtzee!</h2>
+                <p>Score += <span id="yahtzee-score">0</span></p>
+            </div>
         </section>
     </body>
 </html>

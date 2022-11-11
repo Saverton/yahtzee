@@ -156,6 +156,33 @@ tr.scored {
     text-align: center;
 }
 
+#yahtzee-message {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    width: 20%;
+    height: 25%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+    font-size: 1.5em;
+    color: gold;
+}
+
+#yahtzee-message h2 {
+    text-decoration: underline;
+}
+
+#yahtzee-message p {
+    padding: 0.5em;
+    background-color: lightgray;
+    margin-bottom: 1em;
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
 .hidden {
     display: none;
 }
