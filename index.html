@@ -9,7 +9,8 @@
         <script defer src="./src/index.js" ></script>
     </head>
     <body>
-        <h1>Hello Yahtzee!</h1>
+        <h1>Yahtzee!</h1>
+        <h3 id="subtitle"><em>"A game of <a href="#disclaimer" class="normal-link">skill*</a> and chance!"</em></h3>
         <section id="game-section">
             <div class="container left" id="play-div">
                 <p class="game-info">Rolls remaining this hand: <span id="rolls-left">3</span></p>
@@ -163,10 +164,90 @@
                 <h3>Overview</h3>
                 <p>There are 13 different hands, each with their own requirements and scoring procedures. Each hand other than "Yathzee!" can only be scored once, so the player must plan which hands they play each turn to maximize points. Certain hands have specific requirements in order to score, some have specific scoring guidelines, and others have both requirements and scoring guidelines. A list of all the hands and their descriptions can be found below. Bonus points can be earned by meeting a certain point threshold in certain hands and by throwing additional "Yahtzee!"s</p>
                 <h3>What happens in a turn?</h3>
+                <p>Each turn, the player can roll his or her dice up to 3 times, but can choose to submit his or her desired hand earlier if desired. After each roll, the player can choose to keep any of their dice without rerolling them. This will mean that they remain on the same side during the next roll, but the roll still counts like any other regardless of how many are kept. After three rolls, the player must select a hand to score the dice with. If a Yahtzee! is rolled at any time, the necessary points are automatically added (50 for first time, 100 for each subsequent Yahtzee!), and the turn is reset without having to use up a hand. The Game ends when the player runs out of hands to score.</p>
                 <h3>Types of Hands</h3>
-                <p></p>
-                <h3>Scoring</h3>
-                <p></p> 
+                <table class="scorecard rules">
+                    <thead>
+                        <th>Hand</th>
+                        <th>Reference</th>
+                    </thead>
+                    <tbody>
+                        <tr class="scorecard-aces">
+                            <td class="hand-name">Aces</td>
+                            <td class="reference">Score the sum of only the ones in the current roll</td>
+                        </tr>
+                        <tr class="scorecard-deuces">
+                            <td class="hand-name">Deuces</td>
+                            <td class="reference">Score the sum of only the twos in the current roll</td>
+                        </tr>
+                        <tr class="scorecard-threes">
+                            <td class="hand-name">Threes</td>
+                            <td class="reference">Score the sum of only the threes in the current roll</td>
+                        </tr>
+                        <tr class="scorecard-fours">
+                            <td class="hand-name">Fours</td>
+                            <td class="reference">Score the sum of only the fours in the current roll</td>
+                        </tr>
+                        <tr class="scorecard-fives">
+                            <td class="hand-name">Fives</td>
+                            <td class="reference">Score the sum of only the fives in the current roll</td>
+                        </tr>
+                        <tr class="scorecard-sixes">
+                            <td class="hand-name">Sixes</td>
+                            <td class="reference">Score the sum of only the sixes in the current roll</td>
+                        </tr>
+                        <tr class="scorecard-three-of-a-kind">
+                            <td class="hand-name">Three of a kind</td>
+                            <td class="reference">Must have at least 3 of one number, scores the total sum of all dice</td>
+                        </tr>
+                        <tr class="scorecard-four-of-a-kind">
+                            <td class="hand-name">Four of a kind</td>
+                            <td class="reference">Must have at least 4 of one number, scores the total sum of all dice</td>
+                        </tr>
+                        <tr class="scorecard-full-house">
+                            <td class="hand-name">Full house</td>
+                            <td class="reference">Must have three of one number and two of another, scores 25 points</td>
+                        </tr>
+                        <tr class="scorecard-small-straight">
+                            <td class="hand-name">Small straight</td>
+                            <td class="reference">Must have a consecutive sequence of at least 4 (i.e. 1, 2, 3, 4), scores 30 points</td>
+                        </tr>
+                        <tr class="scorecard-large-straight">
+                            <td class="hand-name">Large straight</td>
+                            <td class="reference">Must have a consecutive sequence of at least 5 (i.e. 1, 2, 3, 4, 5), scores 40 points</td>
+                        </tr>
+                        <tr class="scorecard-yahtzee">
+                            <td class="hand-name">Yahtzee!</td>
+                            <td class="reference">(not a chooseable hand) Must have 5 of the same number, scores 50 the first time</td>
+                        </tr>
+                        <tr class="scorecard-chance">
+                            <td class="hand-name">Chance</td>
+                            <td class="reference">Score the sum of all the dice</td>
+                        </tr>
+                        <tr class="scorecard-yahtzee-bonus">
+                            <td class="hand-name">Yahtzee Bonus!</td>
+                            <td class="reference">(not a chooseable hand) For any Yahtzee! rolled after scoring Yahtzee!, score 100 points</td>
+                        </tr>
+                        <tr class="scorecard-score-bonus">
+                            <td class="hand-name">Score Bonus</td>
+                            <td class="reference">(not a chooseable hand) Must have a total sum of Aces - Sixes hands greater than 63, scores 35 bonus points</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3>Final Scoring</h3>
+                <p>Final scores are tallied as follows: </p>
+                <ol>
+                    <li>
+                        Add up all scores recorded on the scorecard
+                        <ul>
+                            <li>For the first Yahtzee!, add 50 points.</li>
+                            <li>For all subsequent Yahtzee!'s, add a 100 point bonus.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        If the sum of scores recorded for Aces, Deuces, Threes, Fours, Fives, and Sixes is greater than or equal to 63, add 35 bonus points.
+                    </li>
+                </ol>
             </div>
         </section>
         <section class="game-report hidden">
@@ -268,5 +349,6 @@
                 <p>Score += <span id="yahtzee-score">0</span></p>
             </div>
         </section>
+        <p id="disclaimer">*amount of skill actually involved in Yahtzee! is negligible at best</p>
     </body>
 </html>

@@ -8,6 +8,16 @@ h1 {
     text-align: center;
 }
 
+#subtitle {
+    color: gold;
+    text-align: center;
+}
+
+.normal-link {
+    color: gold;
+    text-decoration: none;
+}
+
 section {
     display: flex;
     border: 2px solid gold;
@@ -185,4 +195,11 @@ tr.scored {
 
 .hidden {
     display: none;
+}
+
+#disclaimer {
+    color: lightgray;
+    font-style: italic;
+    text-align: center;
+    font-size: 0.75em;
 }
