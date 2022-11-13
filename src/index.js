@@ -48,10 +48,8 @@ function init() {
 
 function updateDiceDisplay() {
     dice.forEach((die, index) => {
-        const diceImg = document.createElement('img');
+        const diceImg = document.querySelector(`#die-${index + 1} .die-image`);
         diceImg.src = getDieImage(die);
-        diceArray[index].innerHTML = '';
-        diceArray[index].append(diceImg);
     })
 }
 

@@ -9,43 +9,55 @@
         <script defer src="./src/index.js" ></script>
     </head>
     <body>
-        <h1>Yahtzee!</h1>
-        <h3 id="subtitle"><em>"A game of <a href="#disclaimer" class="normal-link">skill*</a> and chance!"</em></h3>
+        <header>
+            <h1>Yahtzee!</h1>
+            <h3 id="subtitle"><em>"A game of <a href="#disclaimer" class="normal-link">skill*</a> and chance!"</em></h3>
+        </header>
         <section id="game-section">
-            <div class="container left" id="play-div">
+            <div class="container" id="play-div">
                 <p class="game-info">Rolls remaining this hand: <span id="rolls-left">3</span></p>
                 <div id="dice-container" class="container">
-                    <div class="die" id="die-1"></div>
-                    <div class="die" id="die-2"></div>
-                    <div class="die" id="die-3"></div>
-                    <div class="die" id="die-4"></div>
-                    <div class="die" id="die-5"></div>
+                    <form id="roll-dice-form" class="play-form">
+                        <fieldset id="dice">
+                            <div class="die" id="die-1">
+                                <img class="die-image">
+                                <div class="checkbox">
+                                    <label for="freeze-die-1">Keep</label>
+                                    <input type="checkbox" name="freeze-die-1" id="freeze-die-1" disabled class='disabled keep-checkbox' />
+                                </div>
+                            </div>
+                            <div class="die" id="die-2">
+                                <img class="die-image">
+                                <div class="checkbox">
+                                    <label for="freeze-die-2">Keep</label>
+                                    <input type="checkbox" name="freeze-die-2" id="freeze-die-2" disabled class='disabled keep-checkbox' />
+                                </div>
+                            </div>
+                            <div class="die" id="die-3">
+                                <img class="die-image">
+                                <div class="checkbox">
+                                    <label for="freeze-die-3">Keep</label>
+                                    <input type="checkbox" name="freeze-die-3" id="freeze-die-3" disabled class='disabled keep-checkbox' />
+                                </div>
+                            </div>
+                            <div class="die" id="die-4">
+                                <img class="die-image">
+                                <div class="checkbox">
+                                    <label for="freeze-die-4">Keep</label>
+                                    <input type="checkbox" name="freeze-die-4" id="freeze-die-4" disabled class='disabled keep-checkbox' />
+                                </div>
+                            </div>
+                            <div class="die" id="die-5">
+                                <img class="die-image">
+                                <div class="checkbox">
+                                    <label for="freeze-die-5">Keep</label>
+                                    <input type="checkbox" name="freeze-die-5" id="freeze-die-5" disabled class='disabled keep-checkbox' />
+                                </div>  
+                            </div>
+                        </fieldset>
+                        <input type="submit" value="Roll" />
+                    </form>
                 </div>
-                <form id="roll-dice-form" class="play-form">
-                    <fieldset id="freeze-dice">
-                        <div class="freeze-die-item">
-                            <label for="freeze-die-1">Keep 1</label>
-                            <input type="checkbox" name="freeze-die-1" id="freeze-die-1" disabled class='disabled keep-checkbox' />
-                        </div>
-                        <div class="freeze-die-item">
-                            <label for="freeze-die-2">Keep 2</label>
-                            <input type="checkbox" name="freeze-die-2" id="freeze-die-2" disabled class='disabled keep-checkbox' />
-                        </div>
-                        <div class="freeze-die-item">
-                            <label for="freeze-die-3">Keep 3</label>
-                            <input type="checkbox" name="freeze-die-3" id="freeze-die-3" disabled class='disabled keep-checkbox' />
-                        </div>
-                        <div class="freeze-die-item">
-                            <label for="freeze-die-4">Keep 4</label>
-                            <input type="checkbox" name="freeze-die-4" id="freeze-die-4" disabled class='disabled keep-checkbox' />
-                        </div>
-                        <div class="freeze-die-item">
-                            <label for="freeze-die-5">Keep 5</label>
-                            <input type="checkbox" name="freeze-die-5" id="freeze-die-5" disabled class='disabled keep-checkbox' />
-                        </div>
-                    </fieldset>
-                    <input type="submit" value="Roll" />
-                </form>
                 <div id="hand-selection-container">
                     <form id="hand-select-form">
                         <label for="hand-select">Select the hand to score: </label>
@@ -68,7 +80,7 @@
                     </form>
                 </div>
             </div>
-            <div class="container right" id="scorecard-container">
+            <div class="container" id="scorecard-container">
                 <div class="point-label">
                     <h3>With Selected Hand: <span id='current-points'>0</span></h3>
                 </div>
