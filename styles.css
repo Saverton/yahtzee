@@ -203,9 +203,6 @@ tr.scored {
     font-size: 0.75em;
 }
 
-@media (max-width: 700px) {
-}
-
 @media (orientation: portrait) {
     #dice .die {
         flex-direction: row;
